@@ -1,6 +1,9 @@
 import login from "../../assets/login.png";
 import gmail from "../../assets/gmail.png";
 import { useState } from "react";
+import { Link } from "react-router";
+import { FaEye } from "react-icons/fa6";
+import { FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
 
@@ -11,6 +14,9 @@ const Login = () => {
   // password State
   const [password, setPassword] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
+
+  // password show state
+  const [show, setShow] = useState(false);
 
   // handleEamil
   const handleEmail = (e) =>{
@@ -23,12 +29,17 @@ const Login = () => {
     setPassword(e.target.value);
     setPasswordErr('')
   }
+  // handlePassword show
+  const handleShow =()=>{
+      setShow(!show);
+    
+  }
 
   // handleLogin
   const handleLogin =()=>{
     console.log(email);
     if(!email){
-      setEmailErr('Plase give your email');
+      setEmailErr('please give your email');
     }else{
       if(!/^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/.test(email)){
         setEmailErr("Please give your right email address--");
@@ -36,7 +47,7 @@ const Login = () => {
       }
     }
     if(!password){
-      setPasswordErr('Plase give your password')
+      setPasswordErr('please give your password')
     }
     
   }
@@ -71,7 +82,7 @@ const Login = () => {
                 <div className="w-[368px] relative mb-[35px]">
                   <input
                   onChange={haldlePassword}
-                    type="password"
+                    type= {show ? 'text' : 'password'}
                     placeholder="Enter your Password"
                     className="w-full border-b-2 border-[#B8B9CE] rounded-[8px] py-[20px] outline-0 font-nunito font-semibold text-[20px] text-primary"
                   />
@@ -79,6 +90,13 @@ const Login = () => {
                     Password
                   </span>
                   <p className="w-full  bg-red-500 px-2 font-nunito font-medium text-white rounded-full mt-[2px]"> {passwordErr} </p>
+                  <div onClick={handleShow} className="absolute top-[50%] translate-y-[-50%] right-[20px] cursor-pointer">
+                    {
+                      show ? <FaEye /> : <FaEyeSlash />
+                    }
+                        
+                        
+                  </div>
                 </div>
                 <div className="w-[368px]">
                   <button
@@ -92,8 +110,10 @@ const Login = () => {
                     </span>
                   </button>
                   <p className="text-center font-openSans text-[14px] text-primary pt-[35px]">
-                    Don’t have an account ?
-                    <span className="text-[#EA6C00]">Sign Up</span>
+                    Don’t have an account ? 
+                    <Link to= "/registration">
+                    <span className="text-[#EA6C00]"> Sign Up</span>
+                    </Link>
                   </p>
                 </div>
               </div>
