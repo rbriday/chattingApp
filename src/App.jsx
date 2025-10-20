@@ -4,6 +4,7 @@ import { RouterProvider } from "react-router/dom";
 import Registration from '../src/components/Pages/Registration'
 import Login from "./components/Pages/Login";
 import firebaseConfig from "./components/firebase/firebaseConfig";
+import Forgot from "./components/Forgot/Forgot";
 
 
 function App() {
@@ -17,11 +18,15 @@ function App() {
     path: "/login",
     element: <Login></Login>,
   },
+  {
+    path: "/forgotPassword",
+    element: <Forgot></Forgot>,
+  },
 ]);
 
   return (
     <>
-      <RouterProvider router={router} />,
+      <RouterProvider router={router} />
     </>
   )
 }

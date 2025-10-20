@@ -3,12 +3,16 @@ import registration from "../../assets/registration.png";
 import { Link, useNavigate } from "react-router";
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { Bounce, ToastContainer, toast } from "react-toastify";
+import { BeatLoader } from "react-spinners";
 
 const Registration = () => {
   const auth = getAuth();
   const navigate = useNavigate();
+
+  //react spinners state
+  const [loader, setLoader] = useState(false);
   // vlaue show states
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
@@ -54,23 +58,30 @@ const Registration = () => {
     }
     if (!password) {
       setPasswordErr("plase give your password");
-    } else {
-      if (
-        !/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/.test(
-          password
-        )
-      ) {
-        setPasswordErr("please give strong password");
-      }
-    }
+    } 
+    // else {
+    //   if (
+    //     !/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/.test(
+    //       password
+    //     )
+    //   ) {
+    //     setPasswordErr("please give strong password");
+    //   }
+    // }
     if (email && fullName && password) {
+      setLoader(true);
       createUserWithEmailAndPassword(auth, email, password)
         .then((user) => {
+          sendEmailVerification(auth.currentUser)
           console.log(user, "hello");
           toast.success("Registration Successfully Done");
           setTimeout(() => {
             navigate("/login");
           }, 2000);
+          setLoader(false)
+          setEmail("")
+          setFullName("")
+          setPassword("")
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -110,6 +121,7 @@ const Registration = () => {
             <div className="w-[368px] relative mb-[35px]">
               <input
                 type="email"
+                value={email}
                 onChange={handleEmail}
                 placeholder="Enter your Email"
                 className="w-full border-2 border-[#B8B9CE] rounded-[8px] py-[20px] px-[45px] outline-0 font-nunito font-semibold text-[20px] text-primary"
@@ -127,6 +139,7 @@ const Registration = () => {
               <input
                 onChange={handleFullName}
                 type="text"
+                value={fullName}
                 placeholder="Enter your full name"
                 className="w-full border-2 border-[#B8B9CE] rounded-[8px] py-[20px] px-[45px] outline-0 font-nunito font-semibold text-[20px] text-primary"
               />
@@ -141,6 +154,7 @@ const Registration = () => {
             <div className="w-[368px] relative mb-[35px]">
               <input
                 onChange={handlePassword}
+                value={password}
                 type={show ? "text" : "password"}
                 placeholder="Enter your Password"
                 className="w-full border-2 border-[#B8B9CE] rounded-[8px] py-[20px] px-[45px] outline-0 font-nunito font-semibold text-[20px] text-primary"
@@ -165,12 +179,15 @@ const Registration = () => {
               <button
                 onClick={handleRegistration}
                 type="button"
-                className="w-full py-[20px] bg-[#1E1E1E] rounded-full font-nunito font-semibold text-[20px] text-white cursor-pointer "
+                className="relative w-full py-[20px] bg-[#1E1E1E] rounded-full font-nunito font-semibold text-[20px] text-white cursor-pointer "
               >
-                <span className="relative z-[50]">
+                {
+                  loader ? <BeatLoader color="#fff" /> :
+                  <span className="relative z-[50]">
                   Sign Up
-                  <span className="absolute top-0 left-0 w-[70px] h-[10px] bg-[#5B36F5]/20 blur-[10px] translate-1/2"></span>
                 </span>
+                }
+                <span className="absolute top-[50%] left-[50%] translate-[-50%] w-[70px] h-[10px] bg-[#5B36F5]/20 blur-[10px]"></span>
               </button>
               <p className="text-center font-openSans text-[14px] text-primary pt-[35px]">
                 Already have an account ?
