@@ -74,7 +74,7 @@ const Registration = () => {
         .then((user) => {
           sendEmailVerification(auth.currentUser)
           console.log(user, "hello");
-          toast.success("Registration Successfully Done");
+          toast.success("Registration Successfully Done. Plaese veryfi your email");
           setTimeout(() => {
             navigate("/login");
           }, 2000);

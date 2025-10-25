@@ -1,7 +1,7 @@
 import login from "../../assets/login.png";
 import gmail from "../../assets/gmail.png";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa";
 import { getAuth, signInWithEmailAndPassword,  GoogleAuthProvider, signInWithPopup  } from "firebase/auth";
@@ -10,6 +10,7 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 const Login = () => {
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
+  const navigate = useNavigate();
 
   // Email State
   const [email, setEmail] = useState("");
@@ -53,6 +54,10 @@ const Login = () => {
       signInWithEmailAndPassword(auth, email, password)
         .then((user) => {
           console.log(user);
+          setTimeout(()=>{
+              navigate("/")
+          },2000)
+
           toast.success("Login succssfully done..");
 
           // ...
