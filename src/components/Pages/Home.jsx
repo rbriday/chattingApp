@@ -1,38 +1,61 @@
-
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { reload } from 'firebase/auth/web-extension';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router";
 
 const Home = () => {
-    const data = useSelector(state =>(state.userInfo.value))
-    console.log(data);
-    // const [load, setLoad] = useState(false);
-    const [verify, setverify] = useState(false);
+    const navigate = useNavigate();
+  const data = useSelector((state) => state.userInfo.value);
+  const [load, setLoad] = useState(true);
+  const [verify, setVerify] = useState(false);
 
-    const auth = getAuth();
-onAuthStateChanged(auth, (user) => {
-  if(user.emailVerified)
-        setverify(true)
-    
-});
-    
-    // useEffect(()=>{
-    //     if(data.emailVerified){
-    //         setverify(true)
-    //     }
-    // },[])
+  useEffect(()=>{
+    if(!data){
+        navigate("/login")
+    }
+  })
 
-    return (
-        <div>
-            {
-                verify ? 
-                <p>Home</p> :
-                <p>Please verify your email</p>
-            }
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user.emailVerified) {
+        setVerify(true);
+    }
+    setLoad(false);
+  });
+
+  if(load){
+    return null
+  }
+
+  // useEffect(()=>{
+  //     if(data.emailVerified){
+  //         setverify(true)
+  //     }
+  // },[])
+
+  return (
+    <div>
+      {verify ? (
+        <p>Home</p>
+      ) : (
+        <div className="bg-primary w-full h-screen flex justify-center items-center">
+          <div className="w-[500px] bg-pink-200 text-center p-5 rounded-xl">
+            <p className="font-primary font-semibold text-[30px] text-primary">
+              Please verify your email
+            </p>
+            <div className="mt-[30px] mb-[20px]">
+              <Link
+                to="/login"
+                className="font-openSans font-bold text-[16px] py-[10px] px-[20px] border-2 border-primary rounded-2xl hover:border-primary hover:bg-primary hover:text-pink-200 cursor-pointer transition-all"
+              >
+                Go Back
+              </Link>
+            </div>
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default Home;

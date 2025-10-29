@@ -32,11 +32,6 @@ const Forgot = () => {
         toast.success("Please Check Your Eamil")
         
   })    
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
     }
         
     }
