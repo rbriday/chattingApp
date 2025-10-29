@@ -2,29 +2,34 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
+import SideNavbar from "../SideNavbar/SideNavbar";
+import GroupList from "../GroupList/GroupList";
+import FriendRequest from "../FriendRequest/FriendRequest";
+import Friends from "../Frindes/Friends";
+import MyGroup from "../MyGroup/MyGroup";
 
 const Home = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const data = useSelector((state) => state.userInfo.value);
   const [load, setLoad] = useState(true);
   const [verify, setVerify] = useState(false);
 
-  useEffect(()=>{
-    if(!data){
-        navigate("/login")
+  useEffect(() => {
+    if (!data) {
+      navigate("/login");
     }
-  })
+  });
 
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user.emailVerified) {
-        setVerify(true);
+      setVerify(true);
     }
     setLoad(false);
   });
 
-  if(load){
-    return null
+  if (load) {
+    return null;
   }
 
   // useEffect(()=>{
@@ -36,7 +41,30 @@ const Home = () => {
   return (
     <div>
       {verify ? (
-        <p>Home</p>
+        <div className="flex p-[30px]">
+          <div>
+            <SideNavbar></SideNavbar>
+          </div>
+          <div className="flex space-x-5">
+            <div className="ml-[40px]">
+              <div>
+                <GroupList></GroupList>
+              </div>
+              <div className="mt-[30px]">
+                <FriendRequest></FriendRequest>
+              </div>
+            </div>
+            <div>
+              <div>
+                <Friends></Friends>
+              </div>
+              <div className="mt-[30px]">
+                <MyGroup></MyGroup>
+              </div>
+            </div>
+            <div></div>
+          </div>
+        </div>
       ) : (
         <div className="bg-primary w-full h-screen flex justify-center items-center">
           <div className="w-[500px] bg-pink-200 text-center p-5 rounded-xl">
