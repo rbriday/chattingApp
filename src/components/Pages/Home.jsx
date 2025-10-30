@@ -7,6 +7,8 @@ import GroupList from "../GroupList/GroupList";
 import FriendRequest from "../FriendRequest/FriendRequest";
 import Friends from "../Frindes/Friends";
 import MyGroup from "../MyGroup/MyGroup";
+import UserList from "../UserList/UserList";
+import BlockedUser from "../BlockedUser/BlockedUser";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -62,7 +64,14 @@ const Home = () => {
                 <MyGroup></MyGroup>
               </div>
             </div>
-            <div></div>
+            <div>
+              <div>
+                <UserList></UserList>
+              </div>
+              <div className="mt-[30px]">
+                <BlockedUser></BlockedUser>
+              </div>
+            </div>
           </div>
         </div>
       ) : (

@@ -3,7 +3,7 @@ import friendOne from "../../assets/friendOne.png"
 
 const Friends = () => {
     return (
-        <div className="w-[427px] border-2 border-[#ddd] rounded-xl p-[20px]">
+        <div className="w-[344px] border-2 border-[#ddd] rounded-xl p-[20px]">
                       <div className="flex justify-between">
                         <h3 className="font-poppins font-semibold text-[20px] text-black">
                         Friends
@@ -18,16 +18,16 @@ const Friends = () => {
                             <img src={friendOne} alt="#friendOne" />
                           </div>
                           <div className="ml-[8px]">
-                            <h5 className="font-poppins font-semibold text-[18px] text-black">
+                            <h5 className="font-poppins font-semibold text-[14px] text-black">
                               Tejeshwini C
                             </h5>
-                            <h6 className="font-poppins text-[14px] text-secondary">
+                            <h6 className="font-poppins text-[12px] text-secondary">
                               Hi Guys, Wassup!
                             </h6>
                           </div>
                         </div>
                         <div>
-                          <p className="font-primary text-[14px] text-secondary">Today, 8:56pm</p>
+                          <p className="font-primary text-[10px] text-secondary">Today, 8:56pm</p>
                         </div>
                       </div>
                           {/* group list item one */}
@@ -37,16 +37,16 @@ const Friends = () => {
                             <img src={friendOne} alt="#friendOne" />
                           </div>
                           <div className="ml-[8px]">
-                            <h5 className="font-poppins font-semibold text-[18px] text-black">
+                            <h5 className="font-poppins font-semibold text-[14px] text-black">
                               Tejeshwini C
                             </h5>
-                            <h6 className="font-poppins text-[14px] text-secondary">
+                            <h6 className="font-poppins text-[12px] text-secondary">
                               Hi Guys, Wassup!
                             </h6>
                           </div>
                         </div>
                         <div>
-                          <p className="font-primary text-[14px] text-secondary">Today, 8:56pm</p>
+                          <p className="font-primary text-[10px] text-secondary">Today, 8:56pm</p>
                         </div>
                       </div>
                           {/* group list item one */}
@@ -56,16 +56,16 @@ const Friends = () => {
                             <img src={friendOne} alt="#friendOne" />
                           </div>
                           <div className="ml-[8px]">
-                            <h5 className="font-poppins font-semibold text-[18px] text-black">
+                            <h5 className="font-poppins font-semibold text-[14px] text-black">
                               Tejeshwini C
                             </h5>
-                            <h6 className="font-poppins text-[14px] text-secondary">
+                            <h6 className="font-poppins text-[12px] text-secondary">
                               Hi Guys, Wassup!
                             </h6>
                           </div>
                         </div>
                         <div>
-                          <p className="font-primary text-[14px] text-secondary">Today, 8:56pm</p>
+                          <p className="font-primary text-[10px] text-secondary">Today, 8:56pm</p>
                         </div>
                       </div>
                           {/* group list item one */}
@@ -75,16 +75,16 @@ const Friends = () => {
                             <img src={friendOne} alt="#friendOne" />
                           </div>
                           <div className="ml-[8px]">
-                            <h5 className="font-poppins font-semibold text-[18px] text-black">
+                            <h5 className="font-poppins font-semibold text-[14px] text-black">
                               Tejeshwini C
                             </h5>
-                            <h6 className="font-poppins text-[14px] text-secondary">
+                            <h6 className="font-poppins text-[12px] text-secondary">
                               Hi Guys, Wassup!
                             </h6>
                           </div>
                         </div>
                         <div>
-                          <p className="font-primary text-[14px] text-secondary">Today, 8:56pm</p>
+                          <p className="font-primary text-[10px] text-secondary">Today, 8:56pm</p>
                         </div>
                       </div>
                           {/* group list item one */}
@@ -94,21 +94,21 @@ const Friends = () => {
                             <img src={friendOne} alt="#friendOne" />
                           </div>
                           <div className="ml-[8px]">
-                            <h5 className="font-poppins font-semibold text-[18px] text-black">
+                            <h5 className="font-poppins font-semibold text-[14px] text-black">
                               Tejeshwini C
                             </h5>
-                            <h6 className="font-poppins text-[14px] text-secondary">
+                            <h6 className="font-poppins text-[12px] text-secondary">
                               Hi Guys, Wassup!
                             </h6>
                           </div>
                         </div>
                         <div>
-                          <p className="font-primary text-[14px] text-secondary">Today, 8:56pm</p>
+                          <p className="font-primary text-[10px] text-secondary">Today, 8:56pm</p>
                         </div>
                       </div>
            
                       </div>
-                    </div>
+         </div>
     );
 };
 
