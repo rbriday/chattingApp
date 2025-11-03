@@ -5,8 +5,9 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBYO6lfMIMSJaugCHx6Px0olVk4OL2ia9g",
+   apiKey: "AIzaSyBYO6lfMIMSJaugCHx6Px0olVk4OL2ia9g",
   authDomain: "chatting-5e53b.firebaseapp.com",
+  databaseURL: "https://chatting-5e53b-default-rtdb.firebaseio.com",
   projectId: "chatting-5e53b",
   storageBucket: "chatting-5e53b.firebasestorage.app",
   messagingSenderId: "593085063863",
