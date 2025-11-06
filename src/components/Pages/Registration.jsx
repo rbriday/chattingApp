@@ -3,11 +3,14 @@ import registration from "../../assets/registration.png";
 import { Link, useNavigate } from "react-router";
 import { FaEye } from "react-icons/fa6";
 import { FaEyeSlash } from "react-icons/fa";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import { BeatLoader } from "react-spinners";
 import { getDatabase, ref, set } from "firebase/database";
-
 
 const Registration = () => {
   const auth = getAuth();
@@ -61,7 +64,7 @@ const Registration = () => {
     }
     if (!password) {
       setPasswordErr("plase give your password");
-    } 
+    }
     // else {
     //   if (
     //     !/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/.test(
@@ -75,31 +78,31 @@ const Registration = () => {
       setLoader(true);
       createUserWithEmailAndPassword(auth, email, password)
         .then((user) => {
-          sendEmailVerification(auth.currentUser)
+          sendEmailVerification(auth.currentUser);
           console.log(user, "hello");
-          toast.success("Registration Successfully Done. Plaese veryfi your email");
-          set(ref(db, 'users/' + user.user.uid ), {
-    username: fullName,
-    email: email,
-    password: password,
-    
-  });
+          toast.success(
+            "Registration Successfully Done. Plaese veryfi your email"
+          );
+          set(ref(db, "users/" + user.user.uid), {
+            username: fullName,
+            email: email,
+            password: password,
+          });
           setTimeout(() => {
             navigate("/login");
           }, 2000);
-          setLoader(false)
-          setEmail("")
-          setFullName("")
-          setPassword("")
+          setLoader(false);
+          setEmail("");
+          setFullName("");
+          setPassword("");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           toast.error("This Email-Already-In-Use");
           console.log(errorCode);
-          console.log(errorMessage)
-          setLoader(false)
-          
+          console.log(errorMessage);
+          setLoader(false);
         });
     }
   };
@@ -191,12 +194,11 @@ const Registration = () => {
                 type="button"
                 className="relative w-full py-[20px] bg-[#1E1E1E] rounded-full font-nunito font-semibold text-[20px] text-white cursor-pointer "
               >
-                {
-                  loader ? <BeatLoader color="#fff" /> :
-                  <span className="relative z-[50]">
-                  Sign Up
-                </span>
-                }
+                {loader ? (
+                  <BeatLoader color="#fff" />
+                ) : (
+                  <span className="relative z-[50]">Sign Up</span>
+                )}
                 <span className="absolute top-[50%] left-[50%] translate-[-50%] w-[70px] h-[10px] bg-[#5B36F5]/20 blur-[10px]"></span>
               </button>
               <p className="text-center font-openSans text-[14px] text-primary pt-[35px]">
