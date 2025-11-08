@@ -7,6 +7,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import { BeatLoader } from "react-spinners";
@@ -80,6 +81,10 @@ const Registration = () => {
         .then((user) => {
           sendEmailVerification(auth.currentUser);
           console.log(user, "hello");
+          updateProfile(auth.currentUser, {
+            displayName: fullName,
+            //  photoURL: "https://example.com/jane-q-user/profile.jpg"
+          })
           toast.success(
             "Registration Successfully Done. Plaese veryfi your email"
           );
