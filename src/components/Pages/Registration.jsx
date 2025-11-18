@@ -90,7 +90,6 @@ const Registration = () => {
           set(ref(db, "users/" + user.user.uid), {
             username: fullName,
             email: email,
-            password: password,
           });
           setTimeout(() => {
             navigate("/login");

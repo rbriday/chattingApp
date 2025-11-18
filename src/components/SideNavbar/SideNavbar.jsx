@@ -33,7 +33,7 @@ const SideNavbar = () => {
           <img src={profile} alt="#profile" />
         </div>
          <div className="pb-[65px] flex justify-center font-poppins text-2xl text-white font-semibold">
-            <p>{data?.displayName}</p>
+            <p>{data?.displayName || data?.user?.displayName}</p>
         </div>
         
         <div className="mb-[20px] relative pt-[20px] pb-[25px] before:absolute before:content-[' '] before:top-0 before:right-0 before:bg-white before:w-[161px] before:h-[89px] before:rounded-s-lg before:z-[-1] z-[1]  pl-[70px] after:absolute after:content-[' '] after:top-0 after:right-0 after:bg-black after:w-[8px] after:h-full after:rounded-s-lg after:[box-shadow:-2px_0px_4px_0px_rgba(0,0,0,0.2)] cursor-pointer">

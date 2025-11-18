@@ -2,17 +2,22 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import friendOne from "../../assets/friendOne.png";
 import { useEffect, useState } from "react";
 import { Database, getDatabase, onValue, ref } from "firebase/database";
+import { useSelector } from "react-redux";
 
 const FriendRequest = () => {
   const db = getDatabase();
+  const data = useSelector((selector)=>(selector.userInfo.value.user))
+  
   const [friendRequest, setFriendRequest] = useState([]);
-
   useEffect(() => {
-    const friendRequsetRef = ref(db, "users");
+    const friendRequsetRef = ref(db, "firendRequest");
     onValue(friendRequsetRef, (snapshot) => {
       let arry = [];
       snapshot.forEach((items) => {
+      if(data.uid == items.val().receiverId){
+
         arry.push(items.val());
+      }
       });
       setFriendRequest(arry);
     });
@@ -28,7 +33,7 @@ const FriendRequest = () => {
         <BsThreeDotsVertical size={25} />
       </div>
       <div className="h-[300px] overflow-y-scroll">
-        {friendRequest.map((item) => (
+        {friendRequest.map((items) => (
           <div className="flex items-center justify-between mt-[5px] border-b-2 border-[#000]/25 py-[13px]">
             <div className="flex items-center">
               <div>
@@ -36,7 +41,7 @@ const FriendRequest = () => {
               </div>
               <div className="ml-[8px]">
                 <h5 className="font-poppins font-semibold text-[18px] text-black">
-                  {item.senderName}
+                  {items.senderName}
                 </h5>
                 <h6 className="font-poppins text-[14px] text-secondary">
                   Hi Guys, Wassup!
@@ -52,6 +57,7 @@ const FriendRequest = () => {
               </button>
             </div>
           </div>
+         
         ))}
       </div>
     </div>
