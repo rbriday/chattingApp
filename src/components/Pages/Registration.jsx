@@ -80,10 +80,9 @@ const Registration = () => {
       createUserWithEmailAndPassword(auth, email, password)
         .then((user) => {
           sendEmailVerification(auth.currentUser);
-          console.log(user, "hello");
+     console.log(user)
           updateProfile(auth.currentUser, {
-            displayName: fullName,
-            //  photoURL: "https://example.com/jane-q-user/profile.jpg"
+            displayName: fullName
           })
           toast.success(
             "Registration Successfully Done. Plaese veryfi your email"

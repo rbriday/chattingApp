@@ -12,7 +12,7 @@ import BlockedUser from "../BlockedUser/BlockedUser";
 
 const Home = () => {
   const navigate = useNavigate();
-  const data = useSelector((state) => state.userInfo.value);
+  const data = useSelector((state) => state?.userInfo?.value);
   const [load, setLoad] = useState(true);
   const [verify, setVerify] = useState(false);
 

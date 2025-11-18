@@ -1,33 +1,42 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import friendOne from "../../assets/friendOne.png";
 import { FaPlus } from "react-icons/fa6";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, set, push } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { userInfo } from "../../slices/userSlice";
 
 const UserList = () => {
   const db = getDatabase();
   const [useuListItem, setUserListItem] = useState([]);
 
-  const data = useSelector((selector)=> selector.userInfo.value.user)
-  console.log(data?.uid)
+  // const data = useSelector((selector) => selector?.userInfo?.value?.user);
+  // console.log(data)
 
+  const data = useSelector((selector)=>(selector.userInfo.value))
+  console.log(data, "user")
   useEffect(() => {
     const userRef = ref(db, "users");
     onValue(userRef, (snapshot) => {
       let arry = [];
       snapshot.forEach((items) => {
-        if(data.uid !== items.key){
-          arry.push(items.val());
+        if (data?.uid !== items.key) {
+          arry.push({...items?.val(), userid: items.key});
         }
-        console.log(items.key, "items key")
       });
       setUserListItem(arry);
     });
   }, []);
 
-  console.log(UserList);
+  console.log(useuListItem);
+
+  const handleFriendRequest = (item) => {
+    set(push(ref(db, "firendRequest/")), {
+      senderName: data.displayName,
+      senderId : data.uid,
+      receiverName: item.username,
+      receiverId : item.userid
+    });
+  };
 
   return (
     <div className="w-[344px] border-2 border-[#ddd] rounded-xl p-[20px]">
@@ -53,7 +62,7 @@ const UserList = () => {
                 </h6>
               </div>
             </div>
-            <div className="mr-2">
+            <div className="mr-2" onClick={() => handleFriendRequest(user)}>
               <p className="w-[30px] h-[30px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center">
                 <FaPlus size={20} />
               </p>
