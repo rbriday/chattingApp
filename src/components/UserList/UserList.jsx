@@ -95,7 +95,7 @@ const UserList = () => {
               friendsList.includes(user.userid+data?.uid) 
               ?
               <div className="mr-2" >
-              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center">
+              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center cursor-pointer">
                 friend
               </p>
             </div> :
@@ -103,12 +103,12 @@ const UserList = () => {
               friendRequestList.includes(user.userid+data?.uid) 
               ?
               <div className="mr-2" >
-              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center">
+              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center cursor-pointer">
                 <FaMinus size={20} />
               </p>
             </div> :
                 <div className="mr-2" onClick={() => handleFriendRequest(user)}>
-              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center">
+              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center cursor-pointer">
                 <FaPlus size={20} />
               </p>
             </div>
