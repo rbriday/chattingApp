@@ -13,7 +13,7 @@ const SideNavbar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const data = useSelector((selector)=>(selector.userInfo.value))
+  const data = useSelector((selector)=>(selector?.userInfo?.value))
   console.log(data, "sidebar")
 
   const handleSignOut = () => {

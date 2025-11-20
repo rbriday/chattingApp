@@ -11,8 +11,9 @@ const UserList = () => {
   const [useuListItem, setUserListItem] = useState([]);
   const [friendRequestList, setFriendRequestList] = useState([]);
 
-  const data = useSelector((selector)=>(selector.userInfo.value.user))
+  const data = useSelector((selector)=>(selector.userInfo.value?.user))
   console.log(data, "user")
+
   useEffect(() => {
     const userRef = ref(db, "users");
     onValue(userRef, (snapshot) => {
@@ -29,9 +30,9 @@ const UserList = () => {
   console.log(useuListItem);
 
   const handleFriendRequest = (item) => {
-    set(push(ref(db, "firendRequest/")), {
-      senderName: data.displayName,
-      senderId : data.uid,
+    set(push(ref(db, "firendRequests/")), {
+      senderName: data?.displayName,
+      senderId : data?.uid,
       receiverName: item.username,
       receiverId : item.userid
       
@@ -41,7 +42,7 @@ const UserList = () => {
 
   
   useEffect(() => {
-    const friendRequsetRef = ref(db, "firendRequest");
+    const friendRequsetRef = ref(db, "firendRequests");
     onValue(friendRequsetRef, (snapshot) => {
       let arry = [];
       snapshot.forEach((items) => {
@@ -52,8 +53,17 @@ const UserList = () => {
     });
   }, []);
 
-  console.log(friendRequestList)
-  console.log(useuListItem)
+   const [friendsList, setFriendsList] = useState([]);
+   useEffect(() => {
+     const friendsref = ref(db, "friend");
+     onValue(friendsref, (snapshot) => {
+       let arry = [];
+       snapshot.forEach((items) => {
+        arry.push(items.val().receiverId+items.val().senderId)
+       });
+       setFriendsList(arry);
+     });
+   }, []);
 
   return (
     <div className="w-[344px] border-2 border-[#ddd] rounded-xl p-[20px]">
@@ -79,23 +89,33 @@ const UserList = () => {
                 </h6>
               </div>
             </div>
+            
             {
-              friendRequestList.includes(data.uid+user.userid) ||
-              friendRequestList.includes(user.userid+data.uid) 
+              friendsList.includes(data?.uid+user.userid) ||
+              friendsList.includes(user.userid+data?.uid) 
               ?
               <div className="mr-2" >
-              <p className="w-[30px] h-[30px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center">
-                <FaMinus size={20} />
-               
+              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center">
+                friend
               </p>
             </div> :
-
+            friendRequestList.includes(data?.uid+user.userid) ||
+              friendRequestList.includes(user.userid+data?.uid) 
+              ?
+              <div className="mr-2" >
+              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center">
+                <FaMinus size={20} />
+              </p>
+            </div> :
                 <div className="mr-2" onClick={() => handleFriendRequest(user)}>
-              <p className="w-[30px] h-[30px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center">
+              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center">
                 <FaPlus size={20} />
               </p>
             </div>
             }
+
+
+           
             
           </div>
         ))}

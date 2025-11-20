@@ -57,7 +57,7 @@ const Login = () => {
       signInWithEmailAndPassword(auth, email, password)
         .then((user) => {
           console.log(user);
-          dispatch(userInfo(user.user))
+          dispatch(userInfo(user))
           localStorage.setItem('userInfo', JSON.stringify(user))
           setTimeout(()=>{
               navigate("/")

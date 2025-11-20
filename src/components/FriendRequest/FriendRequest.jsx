@@ -1,28 +1,39 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
 import friendOne from "../../assets/friendOne.png";
 import { useEffect, useState } from "react";
-import { Database, getDatabase, onValue, ref } from "firebase/database";
+import { Database, getDatabase, onValue, push, ref, remove, set } from "firebase/database";
 import { useSelector } from "react-redux";
 
 const FriendRequest = () => {
   const db = getDatabase();
-  const data = useSelector((selector)=>(selector.userInfo.value.user))
+  const data = useSelector((selector)=>(selector.userInfo.value?.user))
   
   const [friendRequest, setFriendRequest] = useState([]);
   useEffect(() => {
-    const friendRequsetRef = ref(db, "firendRequest");
+    const friendRequsetRef = ref(db, "firendRequests");
     onValue(friendRequsetRef, (snapshot) => {
       let arry = [];
       snapshot.forEach((items) => {
-      if(data.uid == items.val().receiverId){
-
-        arry.push(items.val());
+      if(data?.uid == items.val().receiverId){
+        arry.push({...items.val(), userId: items.key});
       }
       });
       setFriendRequest(arry);
     });
   }, []);
   console.log(friendRequest);
+
+  const handlelFriend =(item)=>{
+    console.log(item)
+    set(push(ref(db, "friend")),{
+      receiverName : item.receiverName,
+      receiverId : item.receiverId,
+      senderName : item.senderName,
+      senderId : item.senderId
+    }).then(()=>{
+      remove(ref(db, "firendRequests/" + item.userId))
+    })
+  }
 
   return (
     <div className="w-[427px] border-2 border-[#ddd] rounded-xl p-[20px]">
@@ -50,8 +61,9 @@ const FriendRequest = () => {
             </div>
             <div>
               <button
+              onClick={()=>handlelFriend(items)}
                 type="button"
-                className="font-poppins font-semibold text-[20px] text-white px-[20px] py-[2px] bg-black rounded-2xl"
+                className="font-poppins font-semibold text-[20px] text-white px-[5px] py-[5px] bg-black rounded-2xl cursor-pointer"
               >
                 Accept
               </button>

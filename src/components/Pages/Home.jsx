@@ -20,7 +20,7 @@ const Home = () => {
     if (!data) {
       navigate("/login");
     }
-  });
+  },[]);
 
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
