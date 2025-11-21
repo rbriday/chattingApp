@@ -6,7 +6,7 @@ const MyGroup = () => {
     <div className="w-[344px] border-2 border-[#ddd] rounded-xl p-[20px]">
                           <div className="flex justify-between">
                             <h3 className="font-poppins font-semibold text-[20px] text-black">
-                            Friends
+                            My Group
                           </h3>
                           <BsThreeDotsVertical size={25} />
                           </div>
