@@ -65,6 +65,22 @@ const UserList = () => {
      });
    }, []);
 
+  //   const [blockList, setBlockList] = useState([]);
+
+  // useEffect(() => {
+  //   const blockListRef = ref(db, "blockLists");
+  //   onValue(blockListRef, (snapshot) => {
+  //     let arry = [];
+  //     snapshot.forEach((items) => {
+  //       if(data.uid == items.val().senderId || data.uid == items.val().receiverId){
+  //         arry.push(items.val());
+  //       }
+  //     });
+  //     setBlockList(arry);
+  //   });
+  // }, []);
+
+
   return (
     <div className="w-[344px] border-2 border-[#ddd] rounded-xl p-[20px]">
       <div className="flex justify-between">
@@ -89,8 +105,16 @@ const UserList = () => {
                 </h6>
               </div>
             </div>
-            
             {
+            //   blockList.includes(data?.uid+user.userid) ||
+            //   blockList.includes(user.userid+data?.uid) 
+            //   ? 
+            //   <div className="mr-2" >
+            //   <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center cursor-pointer">
+            //     block
+            //   </p>
+            // </div>
+            //  : 
               friendsList.includes(data?.uid+user.userid) ||
               friendsList.includes(user.userid+data?.uid) 
               ?
@@ -113,6 +137,31 @@ const UserList = () => {
               </p>
             </div>
             }
+            
+            
+            {/* {
+              friendsList.includes(data?.uid+user.userid) ||
+              friendsList.includes(user.userid+data?.uid) 
+              ?
+              <div className="mr-2" >
+              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center cursor-pointer">
+                friend
+              </p>
+            </div> :
+            friendRequestList.includes(data?.uid+user.userid) ||
+              friendRequestList.includes(user.userid+data?.uid) 
+              ?
+              <div className="mr-2" >
+              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center cursor-pointer">
+                <FaMinus size={20} />
+              </p>
+            </div> :
+                <div className="mr-2" onClick={() => handleFriendRequest(user)}>
+              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center cursor-pointer">
+                <FaPlus size={20} />
+              </p>
+            </div>
+            } */}
 
 
            

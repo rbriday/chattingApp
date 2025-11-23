@@ -30,7 +30,11 @@ const Friends = () => {
     })
     .then(()=>{
       remove(ref(db, "friend/" + item.userId))
+      
     })
+    // .then(()=>{
+    //   remove(ref(db, "user/" +item.userId)) 
+    // })
   }
   return (
     <div className="w-[344px] border-2 border-[#ddd] rounded-xl p-[20px]">
