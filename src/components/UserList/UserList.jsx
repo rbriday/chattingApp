@@ -65,20 +65,21 @@ const UserList = () => {
      });
    }, []);
 
-  //   const [blockList, setBlockList] = useState([]);
+    const [blockList, setBlockList] = useState([]);
 
-  // useEffect(() => {
-  //   const blockListRef = ref(db, "blockLists");
-  //   onValue(blockListRef, (snapshot) => {
-  //     let arry = [];
-  //     snapshot.forEach((items) => {
-  //       if(data.uid == items.val().senderId || data.uid == items.val().receiverId){
-  //         arry.push(items.val());
-  //       }
-  //     });
-  //     setBlockList(arry);
-  //   });
-  // }, []);
+  useEffect(() => {
+    const blockListRef = ref(db, "blockLists");
+    onValue(blockListRef, (snapshot) => {
+      let arry = [];
+      snapshot.forEach((items) => {
+        // if(data.uid == items.val().senderId || data.uid == items.val().receiverId){
+        //   arry.push(items.val());
+        // }
+        arry.push(items.val().receiverId + items.val().senderId)
+      });
+      setBlockList(arry);
+    });
+  }, []);
 
 
   return (
@@ -106,15 +107,15 @@ const UserList = () => {
               </div>
             </div>
             {
-            //   blockList.includes(data?.uid+user.userid) ||
-            //   blockList.includes(user.userid+data?.uid) 
-            //   ? 
-            //   <div className="mr-2" >
-            //   <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center cursor-pointer">
-            //     block
-            //   </p>
-            // </div>
-            //  : 
+              blockList.includes(data?.uid+user.userid) ||
+              blockList.includes(user.userid+data?.uid) 
+              ? 
+              <div className="mr-2" >
+              <p className="px-[5px] py-[5px] bg-black text-white rounded-[5px] font-semibold flex justify-center items-center cursor-pointer">
+                block
+              </p>
+            </div>
+             : 
               friendsList.includes(data?.uid+user.userid) ||
               friendsList.includes(user.userid+data?.uid) 
               ?
