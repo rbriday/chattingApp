@@ -5,9 +5,37 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 const GroupList = () => {
   const [groupShow, setGroupShow] = useState(false);
 
+  const [groupName , setGroupName] = useState('')
+  const [groupTitle, setGroupTitle] = useState('')
+
+  const [groupNameErr, setGroupNameErr] = useState('')
+  const [groupTitleErr, setGroupTitleErr] = useState('')
+
   const handleCreatGroup = () => {
     setGroupShow(!groupShow);
   };
+  const handleGroupName= (e)=>{
+    setGroupName(e.target.value)
+    setGroupNameErr('')
+
+  }
+  const handleTitleName = (e)=>{
+    setGroupTitle(e.target.value)
+    setGroupNameErr("")
+
+  }
+  const handlGroupCreat = ()=>{
+      if(!groupName){
+        setGroupNameErr("Plase give your group name.")
+        groupNameErr('')
+      }
+      if(!groupTitle){
+        setGroupTitleErr("plase give your group Title..")
+        
+      }
+      setGroupName('')
+      setGroupTitle('')
+  }
   return (
     <>
       <div>
@@ -18,22 +46,28 @@ const GroupList = () => {
             </h2>
             <div>
               <div className="mb-6">
-                <input
+                <input 
+                onChange={handleGroupName}
+                // onChange={(e)=>setGroupName(e.target.value, setGroupTitleErr(''))}
                   type="text"
                   placeholder="Enter your group name"
                   className="py-3 px-1 border-3 outline-0 border-primary rounded-md w-full font-poppins font-semibold text-primary text-[18px]"
                 />
+                <p className="bg-red-500 px-2 font-poppins text-[16px] text-white">{groupNameErr}</p>
               </div>
               <div className="mb-6">
                 <input
+                // onChange={(e)=>setGroupTitle(e.target.value)}
+                onChange={handleTitleName}
                   type="text"
                   placeholder="Enter your group title"
                   className="py-3 px-1 border-3 outline-0 border-primary rounded-md w-full font-poppins font-semibold text-primary text-[18px]"
                 />
+                <p>{groupTitleErr}</p>
               </div>
             </div>
             <div>
-              <button className="bg-primary text-white font-poppins font-semibold text-[20px] px-5 py-3 rounded-md cursor-pointer mr-[20px]">Submit</button>
+              <button onClick={handlGroupCreat} className="bg-primary text-white font-poppins font-semibold text-[20px] px-5 py-3 rounded-md cursor-pointer mr-[20px]">Submit</button>
               <button onClick={()=>(setGroupShow(!groupShow))} className="bg-primary text-white font-poppins font-semibold text-[20px] px-5 py-3 rounded-md cursor-pointer">Go Back</button>
             </div>
           </div>
