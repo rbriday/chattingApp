@@ -72,7 +72,7 @@ const GroupList = () => {
       <div>
         
         {groupShow ? (
-          <div className="absolute top-[30px] left-[50%] w-[500px] h-[400px] translate-x-[-50%] bg-[#ddd] rounded-md p-5 transition-all decoration-5">
+          <div className={"absolute top-[30px] left-[50%] w-[500px] h-[400px] translate-x-[-50%] bg-[#ddd] rounded-md p-5 transition-all duration-1000"}>
             <h2 className="font-poppins font-semibold text-[30px] text-primary pb-4">
               Create Group
             </h2>
@@ -118,7 +118,8 @@ const GroupList = () => {
             </div>
           </div>
         ) : (
-         <div className="absolute top-[-700px] left-[50%] w-[500px] h-[400px] translate-x-[-50%] bg-[#ddd] rounded-md p-5 transition-all decoration-2">
+         
+         <div className="absolute top-[-700px] left-[50%] w-[500px] h-[400px] translate-x-[-50%] bg-[#ddd] rounded-md p-5 transition-all duration-1000">
             <h2 className="font-poppins font-semibold text-[30px] text-primary pb-4">
               Create Group
             </h2>
