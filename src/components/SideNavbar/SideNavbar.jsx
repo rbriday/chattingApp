@@ -4,11 +4,11 @@ import { AiTwotoneMessage } from "react-icons/ai";
 import { MdOutlineSettings } from "react-icons/md";
 import { ImExit } from "react-icons/im";
 import { getAuth, signOut } from "firebase/auth";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { userInfo } from "../../slices/userSlice";
 
-const SideNavbar = () => {
+const SideNavbar = ({active}) => {
   const auth = getAuth();
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -36,11 +36,17 @@ const SideNavbar = () => {
             <p>{data?.displayName || data?.user?.displayName}</p>
         </div>
         
-        <div className="mb-[20px] relative pt-[20px] pb-[25px] before:absolute before:content-[' '] before:top-0 before:right-0 before:bg-white before:w-[161px] before:h-[89px] before:rounded-s-lg before:z-[-1] z-[1]  pl-[70px] after:absolute after:content-[' '] after:top-0 after:right-0 after:bg-black after:w-[8px] after:h-full after:rounded-s-lg after:[box-shadow:-2px_0px_4px_0px_rgba(0,0,0,0.2)] cursor-pointer">
-          <LiaHomeSolid size={46} className="text-black" />
+        <div className={`mb-[20px] relative pt-[20px] pb-[25px] before:absolute before:content-[' '] before:top-0 before:right-0 ${active == "home" ? "before:bg-white" : 'bg-transparent'  }  before:w-[161px] before:h-[89px] before:rounded-s-lg before:z-[-1] z-[1]  pl-[70px] after:absolute after:content-[' '] after:top-0 after:right-0 ${active == "home" ? "after:bg-black" : "bg-transparent" } after:w-[8px] after:h-full after:rounded-s-lg after:[box-shadow:-2px_0px_4px_0px_rgba(0,0,0,0.2)] cursor-pointer`}>
+          <Link to="/">
+          
+          <LiaHomeSolid size={46} className={`${active == "home" ? "text-black": "text-[rgb(187,187,187)]"}`} />
+          </Link>
         </div>
-        <div className="mb-[20px] relative pt-[20px] pb-[25px] before:absolute before:content-[' '] before:top-0 before:right-0 before:bg-white before:w-[161px] before:h-[89px] before:rounded-s-lg before:z-[-1] z-[1]  pl-[70px] after:absolute after:content-[' '] after:top-0 after:right-0 after:bg-black after:w-[8px] after:h-full after:rounded-s-lg after:[box-shadow:-2px_0px_4px_0px_rgba(0,0,0,0.2)] cursor-pointer">
-          <AiTwotoneMessage size={46} className="text-black" />
+        <div className={`mb-[20px] relative pt-[20px] pb-[25px] before:absolute before:content-[' '] before:top-0 before:right-0 ${active == "message" ? "before:bg-white" : 'bg-transparent'  }  before:w-[161px] before:h-[89px] before:rounded-s-lg before:z-[-1] z-[1]  pl-[70px] after:absolute after:content-[' '] after:top-0 after:right-0 ${active == "message" ? "after:bg-black" : "bg-transparent" } after:w-[8px] after:h-full after:rounded-s-lg after:[box-shadow:-2px_0px_4px_0px_rgba(0,0,0,0.2)] cursor-pointer`}>
+          <Link to ="/msg">
+          
+          <AiTwotoneMessage size={46} className={`${active == "message" ? "text-black": "text-[rgb(187,187,187)]"}`}  />
+          </Link>
         </div>
         <div className="mb-[20px] relative pt-[20px] pb-[25px] before:absolute before:content-[' '] before:top-0 before:right-0 before:bg-white before:w-[161px] before:h-[89px] before:rounded-s-lg before:z-[-1] z-[1]  pl-[70px] after:absolute after:content-[' '] after:top-0 after:right-0 after:bg-black after:w-[8px] after:h-full after:rounded-s-lg after:[box-shadow:-2px_0px_4px_0px_rgba(0,0,0,0.2)] cursor-pointer">
           <MdOutlineSettings size={46} className="text-black" />

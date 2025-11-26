@@ -6,6 +6,7 @@ import Login from "./components/Pages/Login";
 import firebaseConfig from "./components/firebase/firebaseConfig";
 import Forgot from "./components/Forgot/Forgot";
 import Home from "./components/Pages/Home";
+import Message from "./components/Message/Message";
 
 
 function App() {
@@ -27,6 +28,10 @@ function App() {
     path: "/forgotPassword",
     element: <Forgot></Forgot>,
   },
+  {
+    path: "/msg",
+    element: <Message></Message>
+  }
 ]);
 
   return (

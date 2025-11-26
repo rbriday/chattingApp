@@ -45,7 +45,7 @@ const Home = () => {
       {verify ? (
         <div className="flex p-[30px]">
           <div>
-            <SideNavbar></SideNavbar>
+            <SideNavbar active = "home"></SideNavbar>
           </div>
           <div className="flex space-x-5">
             <div className="ml-[40px]">
