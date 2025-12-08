@@ -8,8 +8,12 @@ import { FaPaperPlane } from "react-icons/fa";
 import { FaRegSmile } from "react-icons/fa";
 import { IoCameraOutline } from "react-icons/io5";
 import { AiOutlineCamera } from "react-icons/ai";
+import Chatbox from "./Chatbox";
+import { useSelector } from "react-redux";
 
 const Message = () => {
+  const activeData = useSelector((state)=>state.chatBoxInfo?.value)
+  console.log(activeData)
   return (
     <div className="flex p-[30px]">
       <div>
@@ -18,7 +22,8 @@ const Message = () => {
       <div className="flex space-x-5">
         <div className="ml-[40px]">
           <div>
-            <Friends></Friends>
+            {/* <Friends></Friends> */}
+            <Chatbox></Chatbox>
           </div>
         </div>
         <div>
@@ -30,7 +35,11 @@ const Message = () => {
                 </div>
                 <div className="ml-[33px]">
                   <h4 className="font-poppins font-semibold text-[24px] text-black">
-                    Swathi{" "}
+                   
+                    {
+                      activeData ? <p>{activeData?.name}</p> : <p>Unknown</p>
+                    }
+                    
                   </h4>
                   <p className="font-poppins text-[14px] text-black">Online</p>
                 </div>
