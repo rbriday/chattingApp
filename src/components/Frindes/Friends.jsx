@@ -10,8 +10,8 @@ const Friends = () => {
   const db = getDatabase();
   const [friendsList, setFriendsList] = useState([]);
   useEffect(() => {
-    const friendsref = ref(db, "friend");
-    onValue(friendsref, (snapshot) => {
+    const friendsRef = ref(db, "friend");
+    onValue(friendsRef, (snapshot) => {
       let arry = [];
       snapshot.forEach((items) => {
         if(data.uid == items.val().receiverId || data.uid == items.val().senderId){

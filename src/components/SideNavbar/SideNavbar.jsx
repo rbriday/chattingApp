@@ -14,7 +14,7 @@ const SideNavbar = ({active}) => {
   const navigate = useNavigate()
 
   const data = useSelector((selector)=>(selector?.userInfo?.value))
-  console.log(data, "sidebar")
+
 
   const handleSignOut = () => {
     signOut(auth).then((user) => {
@@ -48,16 +48,16 @@ const SideNavbar = ({active}) => {
           <AiTwotoneMessage size={46} className={`${active == "message" ? "text-black": "text-[rgb(187,187,187)]"}`}  />
           </Link>
         </div>
-        <div className={`mb-[20px] relative pt-[20px] pb-[25px] before:absolute before:content-[' '] before:top-0 before:right-0 ${active == "setting" ? "before:bg-white" : 'bg-transparent'  }  before:w-[161px] before:h-[89px] before:rounded-s-lg before:z-[-1] z-[1]  pl-[70px] after:absolute after:content-[' '] after:top-0 after:right-0 ${active == "message" ? "after:bg-black" : "bg-transparent" } after:w-[8px] after:h-full after:rounded-s-lg after:[box-shadow:-2px_0px_4px_0px_rgba(0,0,0,0.2)] cursor-pointer`}>
+        <div className={`mb-[20px] relative pt-[20px] pb-[25px] before:absolute before:content-[' '] before:top-0 before:right-0 ${active == "setting" ? "before:bg-white" : 'bg-transparent'  }  before:w-[161px] before:h-[89px] before:rounded-s-lg before:z-[-1] z-[1]  pl-[70px] after:absolute after:content-[' '] after:top-0 after:right-0 ${active == "setting" ? "after:bg-black" : "bg-transparent" } after:w-[8px] after:h-full after:rounded-s-lg after:[box-shadow:-2px_0px_4px_0px_rgba(0,0,0,0.2)] cursor-pointer`}>
           <Link to = "/setting">
-          <MdOutlineSettings size={46} className={`${active == "setting" ? "text-black": "text-[rgb(187,187,187)]"}`}  />
+          <MdOutlineSettings size={46} className={`${active == "setting" ? "text-black" : "text-[rgb(187,187,187)]"}`}  />
           </Link>
         </div>
-        <div
-          className="mt-[120px] relative pt-[20px] pb-[25px] before:absolute before:content-[' '] before:top-0 before:right-0 before:bg-white before:w-[161px] before:h-[89px] before:rounded-s-lg before:z-[-1] z-[1]  pl-[70px] after:absolute after:content-[' '] after:top-0 after:right-0 after:bg-black after:w-[8px] after:h-full after:rounded-s-lg after:[box-shadow:-2px_0px_4px_0px_rgba(0,0,0,0.2)] cursor-pointer"
+        <div active = "exit"
+          className={`mb-[20px] relative pt-[20px] pb-[25px] before:absolute before:content-[' '] before:top-0 before:right-0 ${active == "exit" ? "before:bg-white" : 'bg-transparent'  }  before:w-[161px] before:h-[89px] before:rounded-s-lg before:z-[-1] z-[1]  pl-[70px] after:absolute after:content-[' '] after:top-0 after:right-0 ${active == "exit" ? "after:bg-black" : "bg-transparent" } after:w-[8px] after:h-full after:rounded-s-lg after:[box-shadow:-2px_0px_4px_0px_rgba(0,0,0,0.2)] cursor-pointer`}
           onClick={handleSignOut}
         >
-          <ImExit size={46} className="text-black" />
+          <ImExit size={46} className={`${active == "exit" ? "text-black" : "text-[rgb(187,187,187)]"}`} />
         </div>
       </div>
     </div>

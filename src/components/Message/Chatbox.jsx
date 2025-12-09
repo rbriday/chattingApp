@@ -25,20 +25,20 @@ const Chatbox = () => {
   }, []);
 
 const handleChatbox = (item)=>{
+  console.log(item)
 
     dispatch(chatBoxInfo(item))
-    if(data.uid == item.senderId){
+    if(data.uid == item.receiverId){
         dispatch(chatBoxInfo({
-            name : item.receiverName,
-            id: item.receiverId,
+            name : item.senderName,
+            id: item.senderId,
         }))
     }else{
         dispatch(chatBoxInfo({
-            name: item.senderName,
-            id: item.senderId,
+            name: item.receiverName,
+            id: item.receiverId,
         }))
     }
-    // localStorage.setItem('userInfo', JSON.stringify(user))
     localStorage.setItem('chatBoxInfo', JSON.stringify(item))
 }
 
