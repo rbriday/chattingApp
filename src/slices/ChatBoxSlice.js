@@ -10,6 +10,8 @@ export const chatBoxSlice = createSlice({
   reducers: {
     chatBoxInfo: (state, action) => {
       state.value = action.payload;
+      const demo = {...state.value}
+      localStorage.setItem('chatBoxInfo', JSON.stringify(demo))
     },
   },
 });

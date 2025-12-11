@@ -11,6 +11,7 @@ import { AiOutlineCamera } from "react-icons/ai";
 import Chatbox from "./Chatbox";
 import { useSelector } from "react-redux";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
+import moment from "moment"
 
 const Message = () => {
   const activeData = useSelector((state)=>state?.chatBoxInfo?.value)
@@ -33,8 +34,10 @@ const handleMsgInput = (e)=>{
          receiverId : activeData.id,
          receiverName: activeData.name,
          message : msg, 
+         date : moment().format(),
   })
-  setMsg('')
+  // setMsg("")
+
  }
 
  useEffect(()=>{
@@ -52,7 +55,8 @@ const messagesRef = ref(db, "message");
       });
       setMsgList(arry);
     });
- },[])
+ },[activeData.id])
+
  console.log(msgList)
   return (
     <div className="flex p-[30px]">
@@ -100,8 +104,9 @@ const messagesRef = ref(db, "message");
                 <div className="absolute bottom-[1px] right-[-22px]">
                   <GoTriangleUp size={50} className=" text-[#000]" />
                 </div>
-                <p className="font-poppins text-[12px] text-[#000]/20">
-                  today, 2.30pm{" "}
+                <p className="font-poppins text-[12px] text-[#000]/50">
+                 {/* {item.date} */}
+                 {moment(item.date).fromNow()}
                 </p>
               </div>
               : 
@@ -118,31 +123,6 @@ const messagesRef = ref(db, "message");
               </div>
           ))
         }
-              {/* receiver message  */}
-              {/* <div className="relative mt-[20px]">
-                <h4 className="font-poppins font-medium text-[16px] text-black py-[13px] px-[52px] bg-[#F1F1F1] rounded-lg inline-block">
-                  How are you doing?
-                </h4>
-                <div className="absolute bottom-[0px] left-[-22px]">
-                  <GoTriangleUp size={50} className=" text-[#F1F1F1]" />
-                </div>
-                <p className="font-poppins text-[12px] text-[#000]/20">
-                  today, 2.30pm{" "}
-                </p>
-              </div> */}
-          
-            {/* sender message
-              <div className="relative mt-[20px] text-end">
-                <h4 className="font-poppins font-medium text-[16px] text-white py-[13px] px-[52px] bg-[#000] rounded-lg inline-block">
-                  sure
-                </h4>
-                <div className="absolute bottom-[1px] right-[-22px]">
-                  <GoTriangleUp size={50} className=" text-[#000]" />
-                </div>
-                <p className="font-poppins text-[12px] text-[#000]/20">
-                  today, 2.30pm{" "}
-                </p>
-              </div> */}
             </div>
             <div className="pt-[20px] flex space-x-[20px] ">
               <div className="relative">
