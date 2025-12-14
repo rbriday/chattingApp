@@ -11,53 +11,54 @@ import { AiOutlineCamera } from "react-icons/ai";
 import Chatbox from "./Chatbox";
 import { useSelector } from "react-redux";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
-import moment from "moment"
+import moment from "moment";
+import EmojiPicker from "emoji-picker-react";
 
 const Message = () => {
-  const activeData = useSelector((state)=>state?.chatBoxInfo?.value)
-  const data = useSelector((selector)=>(selector.userInfo.value?.user))
+  const activeData = useSelector((state) => state?.chatBoxInfo?.value);
+  const data = useSelector((selector) => selector.userInfo.value?.user);
 
   const db = getDatabase();
 
-  const [msg, setMsg] = useState('')
-  const [msgList, setMsgList]= useState([])
+  const [msg, setMsg] = useState("");
+  const [msgList, setMsgList] = useState([]);
+  const [showEmoji, setShowEmoji] = useState(false);
 
-const handleMsgInput = (e)=>{
+  const handleMsgInput = (e) => {
     setMsg(e.target.value);
-    
-    
-}
-  const handleMsg = () =>{
-    set(push(ref(db, "message")),{
-         senderId : data.uid,
-         senderName : data.displayName,
-         receiverId : activeData.id,
-         receiverName: activeData.name,
-         message : msg, 
-         date : moment().format(),
-  })
-  // setMsg("")
+  };
+  const handleMsg = () => {
+     if (!msg.trim() || !activeData?.id) return;
+    set(push(ref(db, "message")), {
+      senderId: data.uid,
+      senderName: data.displayName,
+      receiverId: activeData.id,
+      receiverName: activeData.name,
+      message: msg,
+      date: moment().format(),
+    });
 
- }
+    setMsg("");
+  };
 
- useEffect(()=>{
-const messagesRef = ref(db, "message");
+  useEffect(() => {
+    const messagesRef = ref(db, "message");
     onValue(messagesRef, (snapshot) => {
       let arry = [];
       snapshot.forEach((items) => {
-        if(
-          (data.uid == items.val().senderId && activeData.id == items.val().receiverId)
-          ||
-          (data.uid == items.val().receiverId && activeData.id == items.val().senderId)
+        if (
+          (data.uid == items.val().senderId &&
+            activeData.id == items.val().receiverId) ||
+          (data.uid == items.val().receiverId &&
+            activeData.id == items.val().senderId)
         )
-       arry.push(items.val()
-)
+          arry.push(items.val());
       });
       setMsgList(arry);
     });
- },[activeData.id])
+  }, [activeData.id]);
 
- console.log(msgList)
+  console.log(msgList);
   return (
     <div className="flex p-[30px]">
       <div>
@@ -79,11 +80,7 @@ const messagesRef = ref(db, "message");
                 </div>
                 <div className="ml-[33px]">
                   <h4 className="font-poppins font-semibold text-[24px] text-black">
-                   
-                    {
-                      activeData ? <p>{activeData?.name}</p> : <p>Unknown</p>
-                    }
-                    
+                    {activeData ? <p>{activeData?.name}</p> : <p>Unknown</p>}
                   </h4>
                   <p className="font-poppins text-[14px] text-black">Online</p>
                 </div>
@@ -92,57 +89,69 @@ const messagesRef = ref(db, "message");
                 <BsThreeDotsVertical size={25} />
               </div>
             </div>
-            <div className="pt-[50px] p-[20px] border-b-2 border-[#000]/25 h-[550px] overflow-y-scroll">
-        
-        {
-          msgList.map((item)=>(
-            data.uid == item.senderId ?
-              <div className="relative mt-[20px] text-end">
-                <h4 className="font-poppins font-medium text-[16px] text-white py-[13px] px-[52px] bg-[#000] rounded-lg inline-block">
-                  {item.message}
-                </h4>
-                <div className="absolute bottom-[1px] right-[-22px]">
-                  <GoTriangleUp size={50} className=" text-[#000]" />
-                </div>
-                <p className="font-poppins text-[12px] text-[#000]/50">
-                 {/* {item.date} */}
-                 {moment(item.date).fromNow()}
-                </p>
-              </div>
-              : 
-              <div className="relative mt-[20px]">
-                <h4 className="font-poppins font-medium text-[16px] text-black py-[13px] px-[52px] bg-[#F1F1F1] rounded-lg inline-block">
-                  {item.message}
-                </h4>
-                <div className="absolute bottom-[0px] left-[-22px]">
-                  <GoTriangleUp size={50} className=" text-[#F1F1F1]" />
-                </div>
-                <p className="font-poppins text-[12px] text-[#000]/20">
-                  today, 2.30pm{" "}
-                </p>
-              </div>
-          ))
-        }
+            <div className="pt-[50px] p-[20px] border-b-2 border-[#000]/25 h-[550px] overflow-y-scroll overflow-x-hidden">
+              {msgList.map((item) =>
+                data.uid == item.senderId ? (
+                  <div className="relative mt-[20px] text-end">
+                    <h4 className="font-poppins font-medium text-[16px] text-white py-[13px] px-[52px] bg-[#000] rounded-lg inline-block">
+                      {item.message}
+                    </h4>
+                    <div className="absolute bottom-[1px] right-[-22px]">
+                      <GoTriangleUp size={50} className=" text-[#000]" />
+                    </div>
+                    <p className="font-poppins text-[12px] text-[#000]/50">
+                      {moment(item.date).fromNow()}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="relative mt-[20px]">
+                    <h4 className="font-poppins font-medium text-[16px] text-black py-[13px] px-[52px] bg-[#F1F1F1] rounded-lg inline-block">
+                      {item.message}
+                    </h4>
+                    <div className="absolute bottom-[0px] left-[-22px]">
+                      <GoTriangleUp size={50} className=" text-[#F1F1F1]" />
+                    </div>
+                    <p className="font-poppins text-[12px] text-[#000]/20">
+                      {moment(item.date).fromNow()}
+                    </p>
+                  </div>
+                )
+              )}
             </div>
-            <div className="pt-[20px] flex space-x-[20px] ">
+
+            <div className="pt-[20px] flex space-x-[20px] relative ">
+              <div className="absolute top-[-435px] left-[50%] translate-x-[-50%]">
+                {showEmoji && <EmojiPicker />}
+              </div>
               <div className="relative">
                 <input
-                onChange={handleMsgInput}
+                  onChange={handleMsgInput}
                   type="text"
+                  value={msg}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleMsg();
+                    }
+                  }}
                   className="w-[537px] h-[45px] outline-0 bg-[#F1F1F1] rounded-xl px-5 font-poppins font-medium text-[14px] text-[#000]/50"
                 />
+
                 <div className="flex space-x-[15px] absolute right-[4%] top-[50%] translate-y-[-50%]">
                   <div>
-                    <FaRegSmile className="text-[#000]/50 text-[15px] cursor-pointer" />
+                    <FaRegSmile
+                      onClick={() => setShowEmoji(!showEmoji)}
+                      className="text-[#000]/50 text-[15px] cursor-pointer"
+                    />
                   </div>
                   <div>
                     <IoCameraOutline className="text-[#000]/50 text-[17px] cursor-pointer" />
                   </div>
                 </div>
               </div>
-              <div 
-              onClick={handleMsg}
-              className="flex justify-center items-center w-[45px] h-[45px] bg-[#000] text-[#fff] rounded-xl cursor-pointer">
+              <div
+                onClick={handleMsg}
+                className="flex justify-center items-center w-[45px] h-[45px] bg-[#000] text-[#fff] rounded-xl cursor-pointer"
+              >
                 <FaPaperPlane />
               </div>
             </div>
